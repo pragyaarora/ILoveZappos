@@ -3,11 +3,18 @@ package com.example.pragya.ilovezappos;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,10 +24,29 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchActivity extends AppCompatActivity {
 
+    List<ZapposItem> list;
+    ZapposItemAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        list = new ArrayList<>();
+        adapter = new ZapposItemAdapter(list, SearchActivity.this);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpTopx(8), true));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+       // RecyclerView.LayoutManager manager = new GridLayoutManager(SearchActivity.this, 2);
+
+        recyclerView.setAdapter(adapter);
+        //tItemAnimator());
+    }
+
+    private int dpTopx(int dp) {
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics()));
     }
 
     @Override
@@ -65,8 +91,8 @@ public class SearchActivity extends AppCompatActivity {
             public void onResponse(Call<ZapposItemList> call, Response<ZapposItemList> response) {
 
                 ZapposItemList items = response.body();
-                Log.d("pragya", items.currentResultCount + "");
-
+                // TODO Populate the recyclerview here
+                initRecyclerView(items);
             }
 
             @Override
@@ -77,4 +103,13 @@ public class SearchActivity extends AppCompatActivity {
 
 
     }
+
+    private void initRecyclerView(final ZapposItemList items) {
+        Log.d("pragya", "items : " + items.results.size());
+        this.list = items.results;
+        adapter.setList(list);
+
+    }
+
+
 }

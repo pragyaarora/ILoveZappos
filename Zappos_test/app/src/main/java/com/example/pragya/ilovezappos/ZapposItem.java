@@ -1,11 +1,15 @@
 package com.example.pragya.ilovezappos;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
 /**
  * Created by pragya on 2/4/2017.
  */
 
-public class ZapposItem {
-    String brandName;
+public class ZapposItem extends BaseObservable {
+    @Bindable
+   public String brandName;
 
     String thumbnailImageUrl;
 
@@ -17,11 +21,14 @@ public class ZapposItem {
 
     String colorId;
 
-    String price;
+    @Bindable
+    public String price;
 
     String percentOff;
 
     String productUrl;
 
-    String productName;
+    @Bindable
+    public String productName;
+
 }
