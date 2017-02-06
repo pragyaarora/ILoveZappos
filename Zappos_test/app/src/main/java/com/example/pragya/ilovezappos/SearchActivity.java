@@ -52,6 +52,8 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         recyclerView.setAdapter(adapter);
+        recyclerView.setVisibility(View.GONE);
+        findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
 
     }
 
@@ -118,6 +120,15 @@ public class SearchActivity extends AppCompatActivity {
         Log.d("pragya", "items : " + items.results.size());
         this.list = items.results;
         adapter.setList(list);
+
+        if (list.isEmpty()) {
+            findViewById(R.id.recycler_view).setVisibility(View.GONE);
+            findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.recycler_view).setVisibility(View.VISIBLE);
+            findViewById(R.id.empty_view).setVisibility(View.GONE);
+        }
+
 
     }
 
