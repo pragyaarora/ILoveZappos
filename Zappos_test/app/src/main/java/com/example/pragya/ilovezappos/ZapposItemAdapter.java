@@ -8,8 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -22,14 +25,19 @@ public class ZapposItemAdapter extends RecyclerView.Adapter<ZapposItemAdapter.My
 
     private Context mContext;
     private List<ZapposItem> mItemsList;
+    View fabView;
 
-    public ZapposItemAdapter(List<ZapposItem> list, Context context) {
+    int count = 0;
+
+    public ZapposItemAdapter(List<ZapposItem> list, Context context, View fabView) {
         this.mItemsList = list;
         this.mContext = context;
+        this.fabView = fabView;
     }
 
     public void setList(List<ZapposItem> list) {
         this.mItemsList.clear();
+        count = 0;
         this.mItemsList.addAll(list);
         notifyDataSetChanged();
     }
@@ -45,11 +53,37 @@ public class ZapposItemAdapter extends RecyclerView.Adapter<ZapposItemAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        ZapposItem item = mItemsList.get(position);
+        final ZapposItem item = mItemsList.get(position);
         Log.d("pragya", "Inside onBindViewHolder");
         holder.mBinder.setVariable(com.example.pragya.ilovezappos.BR.item, item);
         ImageView img = (ImageView) holder.mBinder.getRoot().findViewById(R.id.card_img);
-        Glide.with(mContext).load(item.thumbnailImageUrl).placeholder(R.drawable.placeholder).centerCrop().crossFade().into(img);
+        Glide.with(mContext).load(item.thumbnailImageUrl).placeholder(R.drawable.placeholder).crossFade().into(img);
+        ImageView heartImg = (ImageView) holder.mBinder.getRoot().findViewById(R.id.heart_img);
+        if (item.pressed)
+            heartImg.setImageResource(R.drawable.ic_favorite_black_24dp);
+        else
+            heartImg.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+
+
+        heartImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView textView = (TextView) fabView.findViewById(R.id.count);
+                item.pressed = !item.pressed;
+
+                if (item.pressed) {
+                    count++;
+                    ((ImageView) v).setImageResource(R.drawable.ic_favorite_black_24dp);
+                } else {
+                    count--;
+                    ((ImageView) v).setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                }
+                textView.setText("" + count);
+                Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.bounce_animation);
+                fabView.startAnimation(animation);
+
+            }
+        });
     }
 
     @Override
@@ -59,9 +93,9 @@ public class ZapposItemAdapter extends RecyclerView.Adapter<ZapposItemAdapter.My
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        ViewDataBinding  mBinder;
+        ViewDataBinding mBinder;
 
-        public MyViewHolder(ViewDataBinding  binding) {
+        public MyViewHolder(ViewDataBinding binding) {
             super(binding.getRoot());
             this.mBinder = binding;
             mBinder.executePendingBindings();

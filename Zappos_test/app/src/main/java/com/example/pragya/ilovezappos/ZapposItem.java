@@ -31,4 +31,6 @@ public class ZapposItem extends BaseObservable {
     @Bindable
     public String productName;
 
+    boolean pressed = false;
+
 }

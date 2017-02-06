@@ -1,5 +1,7 @@
 package com.example.pragya.ilovezappos;
 
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,11 +9,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,19 +36,23 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+
+        setContentView(R.layout.main_layout);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         list = new ArrayList<>();
-        adapter = new ZapposItemAdapter(list, SearchActivity.this);
+        adapter = new ZapposItemAdapter(list, SearchActivity.this, findViewById(R.id.fab));
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpTopx(8), true));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpTopx(8), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-       // RecyclerView.LayoutManager manager = new GridLayoutManager(SearchActivity.this, 2);
 
         recyclerView.setAdapter(adapter);
-        //tItemAnimator());
+
     }
 
     private int dpTopx(int dp) {
