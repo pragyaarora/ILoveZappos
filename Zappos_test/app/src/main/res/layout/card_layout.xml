@@ -35,24 +35,24 @@
                     android:id="@+id/card_img"
                     android:layout_width="110dp"
                     android:layout_height="150dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_alignParentTop="true" />
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="8dp" />
 
                 <TextView
                     android:id="@+id/product_name"
                     android:layout_width="70dp"
                     android:layout_height="20dp"
+                    android:layout_below="@+id/card_img"
                     android:layout_marginBottom="2dp"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:layout_below="@+id/card_img"
                     android:text="@{item.productName}"
                     android:textSize="16sp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_below="@+id/product_name"
-                    android:layout_height="25dp">
+                    android:layout_height="25dp"
+                    android:layout_below="@+id/product_name">
 
                     <TextView
                         android:id="@+id/price"
@@ -67,9 +67,9 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_alignParentEnd="true"
+                        android:layout_marginRight="16dp"
                         android:layout_toEndOf="@+id/price"
                         android:scaleType="centerInside"
-                        android:layout_marginRight="16dp"
                         android:src="@drawable/heart_icon_drawable"
                         android:visibility="visible" />
 

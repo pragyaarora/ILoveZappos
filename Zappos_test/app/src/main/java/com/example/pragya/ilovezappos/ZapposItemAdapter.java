@@ -1,8 +1,10 @@
 package com.example.pragya.ilovezappos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -55,6 +58,7 @@ public class ZapposItemAdapter extends RecyclerView.Adapter<ZapposItemAdapter.My
 
         final ZapposItem item = mItemsList.get(position);
         Log.d("pragya", "Inside onBindViewHolder");
+        holder.setItem(item);
         holder.mBinder.setVariable(com.example.pragya.ilovezappos.BR.item, item);
         ImageView img = (ImageView) holder.mBinder.getRoot().findViewById(R.id.card_img);
         Glide.with(mContext).load(item.thumbnailImageUrl).placeholder(R.drawable.placeholder).crossFade().into(img);
@@ -94,11 +98,33 @@ public class ZapposItemAdapter extends RecyclerView.Adapter<ZapposItemAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         ViewDataBinding mBinder;
+        ZapposItem item;
 
         public MyViewHolder(ViewDataBinding binding) {
             super(binding.getRoot());
             this.mBinder = binding;
             mBinder.executePendingBindings();
+
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(mContext, ItemDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("brandName", item.brandName);
+                    bundle.putString("productName", item.productName);
+                    bundle.putString("price", item.price);
+                    bundle.putString("image_url", item.thumbnailImageUrl);
+
+                    intent.putExtras(bundle);
+
+                    mContext.startActivity(intent);
+                }
+            });
+        }
+
+        public void setItem(ZapposItem item) {
+            this.item = item;
         }
     }
 }
