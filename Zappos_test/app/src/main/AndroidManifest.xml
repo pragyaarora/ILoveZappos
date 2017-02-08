@@ -12,6 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SearchActivity"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +23,7 @@
 
         <activity
             android:name=".ItemDetailActivity"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme"></activity>
     </application>
 

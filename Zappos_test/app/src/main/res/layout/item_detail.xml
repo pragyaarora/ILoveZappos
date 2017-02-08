@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -10,53 +9,59 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.pragya.ilovezappos.ItemDetailActivity">
 
-
-    <RelativeLayout
-        android:id="@+id/card_view_linear_layout"
+    <LinearLayout
+        android:id="@+id/item_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/card_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:id="@+id/product_name"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_below="@+id/card_img"
+        <RelativeLayout
+            android:id="@+id/card_view_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="2dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:text=""
-            android:textSize="16sp" />
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:gravity="center_horizontal">
 
-        <TextView
-            android:id="@+id/brandName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/product_name"
-            android:text=""
-            android:textSize="16sp" />
+            <ImageView
+                android:id="@+id/card_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_below="@+id/card_img"
+                android:layout_marginBottom="2dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/brandName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/product_name"
+                android:text=""
+                android:textSize="16sp" />
 
 
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="50dp"
-            android:layout_height="20dp"
-            android:layout_below="@+id/brandName"
-            android:text=""
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/brandName"
+                android:text=""
+                android:textSize="16sp" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

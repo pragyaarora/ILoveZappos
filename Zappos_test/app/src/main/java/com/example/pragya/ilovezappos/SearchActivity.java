@@ -1,5 +1,6 @@
 package com.example.pragya.ilovezappos;
 
+import android.content.res.Configuration;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +100,12 @@ public class SearchActivity extends AppCompatActivity {
 
         Call<ZapposItemList> call = apiObject.loadItems(query);
 
+        findViewById(R.id.empty_view).setVisibility(View.GONE);
+
+        findViewById(R.id.progress).setVisibility(View.VISIBLE);
+
+        findViewById(R.id.recycler_view).setVisibility(View.GONE);
+
         call.enqueue(new Callback<ZapposItemList>() {
             @Override
             public void onResponse(Call<ZapposItemList> call, Response<ZapposItemList> response) {
@@ -120,17 +128,28 @@ public class SearchActivity extends AppCompatActivity {
         Log.d("pragya", "items : " + items.results.size());
         this.list = items.results;
         adapter.setList(list);
+        findViewById(R.id.progress).setVisibility(View.GONE);
 
         if (list.isEmpty()) {
             findViewById(R.id.recycler_view).setVisibility(View.GONE);
             findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+
         } else {
             findViewById(R.id.recycler_view).setVisibility(View.VISIBLE);
             findViewById(R.id.empty_view).setVisibility(View.GONE);
         }
-
-
     }
 
+    @Override
+    protected void onDestroy() {
+        Log.d("pragya", "Ondestroy called");
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d("pragya", "Onstop called");
+        super.onStop();
+    }
 
 }
